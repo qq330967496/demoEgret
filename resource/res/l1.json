@@ -1,0 +1,13 @@
+//第一个关数据
+{
+    "map":[],//
+    "step":10,//步数
+    "element":[0,1,2,3,4,5],//当前关卡会出现的元素组
+    "levelreq":[//过关条件
+        {"type":"0","num":2},
+        {"type":"2","num":2},
+        {"type":"3","num":6},
+        {"type":"4","num":3}
+    ],
+    "levelbgimg":"background"//背景图
+}
