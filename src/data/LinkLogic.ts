@@ -3,8 +3,10 @@
  */
 class LinkLogic {
 	public static lines:number[][];
+
+	//是否存在连线
 	public static isHaveLine():boolean {
-		LinkLogic.lines = [];
+		LinkLogic.lines = [];//可消除的元素
 		var currentType: string = "";//当前类型
 		var typeNum:number = 0;//类型计数器
 
@@ -245,6 +247,33 @@ class LinkLogic {
 					}
 				}
 			}
+		}
+		return false;
+	}
+	
+	//交换元素算法
+	public static isHaveLineByIndex(p1:number,p2:number):boolean{
+		
+		var p1n:number = p1;
+		var p2n:number = p2;
+
+		var p1id:number = GameData.mapData[Math.floor(p1/GameData.MaxColumn)][p1%GameData.MaxRow];
+		var p2id:number = GameData.mapData[Math.floor(p2/GameData.MaxColumn)][p2%GameData.MaxRow];
+
+		GameData.mapData[Math.floor(p1/GameData.MaxColumn)][p1%GameData.MaxRow] = p2id;
+		GameData.mapData[Math.floor(p2/GameData.MaxColumn)][p2%GameData.MaxRow] = p1id;
+
+		//判断是否正常连线
+		var rel:boolean = LinkLogic.isHaveLine();
+		if(rel){
+			//交换元素
+			GameData.elements[p1id].location = p2;
+			GameData.elements[p2id].location = p1;
+			return true;
+		}else{
+			//还原元素
+			GameData.mapData[Math.floor(p1/GameData.MaxColumn)][p1%GameData.MaxRow] = p1id;
+			GameData.mapData[Math.floor(p2/GameData.MaxColumn)][p2%GameData.MaxRow] = p2id;
 		}
 		return false;
 	}
